@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+       <div class="bg-gray-100  h-screen">
+        <aside class="space-y-6 p-6 bg-linear-to-r from-cyan-500 to-blue-500 fixed top-0 left-0 h-full" id="sidebar" style="width: 250px; transition: 0.3s">
+            
+                <div class="flex flex-col items-center">
+                 <img src="../images/avt.png" width="80"/>
+                 <h1 class="text-lg-font-medium text-white">Lubna khan </h1>
+                 <p class ="text-sm text-gray-300">Lubna@gmail.com</p>
+            </div>
+            <div class="px-6 space-y-4">
+                 
+             </a>
+            <div class="px-3 flex flex-col gap-4">
+            <a href="./dashbord.html"> 
+                <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
+                <i class="ri-apps-line"></i>
+                <label>Dashbord</label>
+                </button>
+            </a>
+            
+            <a href="./my-files.html"> 
+                <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
+                <i class="ri-file-2-line"></i>
+                <label>My Files</label>
+                </button>
+            </a>
+           
+            <a href="./History.html"> 
+                <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
+                <i class="ri-history-line"></i>
+                <label>History</label>
+                </button>
+            </a>
+            <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
+                <i class="ri-logout-circle-r-line"></i>
+                <label>Logout</label>
+                </button>
+            </div>
+                  </div>
+
+        </aside>
+       <section class= " p-3" id="section " style="margin-left:250px ;transition: 0.3s">
+            <nav class="bg-white p-8 py-4 w-full shadow-lg flex justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="ri-contrast-2-fill text-5xl text-violet-700"></i>
+                        <h1 class="text-2xl font-semibold">Filemoon</h1>
+                </div >           
+
+                 <div class="space-x-2">
+            <button  class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
+            <i class="ri-logout-circle-r-line"></i>
+        </button>
+            <button onclick="toggleSidebar()" class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
+            <i class="ri-menu-2-line"></i>
+        </button>
+                 </div>
+     </nav>             
+            <div class="p-4 space-y-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-lg font-medium">History</h1>
+                
+            </div>
+
+         <table class="w-full bg-white">
+                <tr class="bg-slate-900 text-white text-left">
+                    <th class="font-medium py-pl-6">Filename</th>
+                    <th class="font-medium py-pl-6"> Email</th>
+                    <th class="font-medium py-pl-6">Datetime</th>
+                     <th class="font-medium py-pl-6">Action</th>
+                   
+                </tr>
+                <tr>
+                    <td class="py-3 pl-6">Introduction to html</td>
+                      <td>Salim khan@gmail.com</td>
+                          <td>24 june 2025</td>
+                          <td>
+                            
+              <div>
+                  <button class="bg-rose-400 px-2 py-1 text-white hover:bg-rose-500 rounded">
+                      <i class="ri-delete-bin-4-line"></i>
+                         </button>
+                 
+                        <tr>
+                    <td class="py-3 pl-6">Introduction to html</td>
+                       <td>Ujalakhan@gmail.com</td>
+                           <td>24 june 2025</td>
+                           <td>
+      <button class="bg-rose-400 px-2 py-1 text-white hover:bg-rose-500 rounded">
+          <i class="ri-delete-bin-4-line"></i>
+              </button>
+          
+                          </div>
+                        </td>
+                            
+                </tr>
+                 <td class="py-3 pl-6">Introduction to html</td>
+                      <td>Talatkhan@gmail.com</td>
+                          <td>25 june 2025</td>
+                          <td>
+                            
+              <div>
+                  <button class="bg-rose-400 px-2 py-1 text-white hover:bg-rose-500 rounded">
+                      <i class="ri-delete-bin-4-line"></i>
+                         </button>
+                 
+                        <tr>
+
+            </table>      
+      </div>  
+ </section>
+ <div class="fixed w-4/12 bg-white shadow-lg top-0 h-full p-6 space-y-4 "style="right:-33.33%; transition:0.2s" id="drawer">
+   <div class="flex justify-between items-center">
+      <h1 class="text-lg font-medium text-gray-600">Adding a new file</h1>
+      <button onclick="toggleDrawer ()">
+        <i class="ri-close-circle-fill hover:text-rose-600 text-lg"></i>
+    </button>
+ </div>
+    <div class="h-px bg-gray-100 -mx-6"></div>
+    <form class="space-y-4">
+        <div class="flex flex-col gap-2">
+            <label class="text-gray-600 font-medium">Filename</label>
+            <input class="py-1 px-10 rounded border border-gray-300" placeholder="Enter file name">
+        </div>
+        <div class="flex flex-col gap-2">
+            <label class="text-gray-600 font-medium">Choose a file</label>
+            <input type ="file" required class="py-1 px-8 rounded border border-gray-300" placeholder="Enter file name">
+        </div>
+        <button class="py-1 px-4 bg-rose-400 hover:bg-rose-500 text-white rounded font-medium">Upload Now</button>
+    </form>
+    <div class="bg-gray-200 h-3">
+        <div class=" h-full bg-green-500 w-6/12 text-xs text-black text-center">50% </div>
+    </div>
+ </div>
+       </div> 
+       <script src="../js/layout.js"></script> 
+       <script src="../js/my-files.js"></script>         
+    </body>
+</html>
+ 
