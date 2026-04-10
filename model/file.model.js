@@ -3,7 +3,13 @@ const {Schema,model} = require("mongoose")
 
 const fileSchema = new Schema(
     {
-           filename:{
+           filename :{
+            type :String,
+            trim:true,
+            lowercase:true,
+            required:true
+            },
+            path :{
             type :String,
             trim:true,
             lowercase:true,

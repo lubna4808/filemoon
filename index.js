@@ -1,39 +1,60 @@
 const dotenv = require("dotenv")
 dotenv.config()
 
-const mongoose = require("mongoose")
-mongoose.connect(process.env.DB)
-
 const express = require("express")
-const {v4:uniqueId} = require("uuid")
-
+const mongoose = require("mongoose")
 const multer = require("multer")
-const storage = multer.diskStorage({
-    destination:(req,file,next)=>{
-        next(null,'files')
-    },
-    filename:(req,file,next)=>{
-        const nameArr = file.originalname.split(".")
-         const ext = nameArr.pop()
-         const name = `${uniqueId()}.${ext}`
-         next(null,name)
-    }
-})
-const upload = multer({storage:storage})
+const { v4: uniqueId } = require("uuid")
+const cors = require("cors")
 
+const { verifyToken } = require("./controller/token.controller")
 const { signup, login } = require("./controller/user.controller")
-const { createFile} = require("./controller/file.controller")
-const app = express ()
-app.listen(process.env.PORT || 8080)
+const { createFile, fetchFiles, deleteFile, downloadFile } = require("./controller/file.controller")
+const { fetchDashboard } = require("./controller/dashboard.controller")
+const app = express()
+
+mongoose.connect(process.env.DB)
+.then(()=> console.log("MongoDB connected"))
+.catch(err => console.log(err))
 
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static("view"))
+app.use(cors({
+  origin:'http://127.0.0.1:5502'
+}))
 
-app.post('/signup',signup)
-app.post('/login',login)
-app.post('/file',upload.single('file'),createFile)
+/* Multer Storage */
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "files")
+  },
+  filename: (req, file, cb) => {
+    const ext = file.originalname.split(".").pop()
+    cb(null, uniqueId() + "." + ext)
+  }
+})
 
+const upload = multer({ storage })
 
+/* Routes */
 
+app.post("/login", login)
+app.post("/signup", signup)
+
+app.post("/file", upload.single("file"), createFile)
+
+app.get("/file", fetchFiles)
+
+app.delete("/file/:Id", deleteFile)
+app.get('/file/download/:Id',downloadFile)
+app.get("/dashboard", fetchDashboard)
+app.post('/token/verify',verifyToken)
+/* Server */
+
+app.listen(process.env.PORT || 8080, () => {
+  console.log("Server is running on port", process.env.PORT || 8080)
+})
+
+console.log("redirecting...")
