@@ -9,6 +9,11 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
     rel="stylesheet"
 />
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+ <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
 </head>
 <body>
        <div class="bg-gray-100  h-screen">
@@ -23,27 +28,27 @@
                  
              </a>
             <div class="px-3 flex flex-col gap-4">
-            <a href="./dashbord.html"> 
+            <a href="/dashbord"> 
                 <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-apps-line"></i>
                 <label>Dashbord</label>
                 </button>
             </a>
             
-            <a href="./my-files.html"> 
+            <a href="/files"> 
                 <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-file-2-line"></i>
                 <label>My Files</label>
                 </button>
             </a>
            
-            <a href="./History.html"> 
+            <a href="/history"> 
                 <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-history-line"></i>
                 <label>History</label>
                 </button>
             </a>
-            <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
+            <button onclick="logout()"class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-logout-circle-r-line"></i>
                 <label>Logout</label>
                 </button>
@@ -59,7 +64,7 @@
                 </div >           
 
                  <div class="space-x-2">
-            <button  class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
+            <button  onclick="logout()" class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
             <i class="ri-logout-circle-r-line"></i>
         </button>
             <button onclick="toggleSidebar()" class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
@@ -77,6 +82,7 @@
             </div>
 
          <table class="w-full bg-white">
+            <thead>
                 <tr class="bg-slate-900 text-white text-left">
                     <th class="font-medium py-pl-6">Filename</th>
                     <th class="font-medium py-pl-6">Type</th>
@@ -84,90 +90,40 @@
                     <th class="font-medium py-pl-6">Created</th>
                     <th class="font-medium py-pl-6">Action</th>
                 </tr>
-                <tr>
-                    <td class="py-3 pl-6">Introduction to html</td>
-                      <td>Image</td>
-                        <td>20.36Mb</td>
-                          <td>24 june 2025</td>
-                          <td>
-                            
-              <div>
-                  <button class="bg-rose-400 px-2 py-1 text-white hover:bg-rose-500 rounded">
-                      <i class="ri-delete-bin-4-line"></i>
-                         </button>
-                 <button class="bg-green-400 px-2 py-1 text-white hover:bg-green-500 rounded">
-                    <i class="ri-download-line"></i>
-                        </button>
-              <button class="bg-amber-400 px-2 py-1 text-white hover:bg-amber-500 rounded">
-                 <i class="ri-share-line"></i>
-                      </button>
-                        <tr>
-                    <td class="py-3 pl-6">Introduction to html</td>
-                       <td>Image</td>
-                         <td>20.36Mb</td>
-                           <td>24 june 2025</td>
-                           <td>
-      <button class="bg-rose-400 px-2 py-1 text-white hover:bg-rose-500 rounded">
-          <i class="ri-delete-bin-4-line"></i>
-              </button>
-          <button class="bg-green-400 px-2 py-1 text-white hover:bg-green-500 rounded">
-             <i class="ri-download-line"></i>
-                 </button>
-               <button class="bg-amber-400 px-2 py-1 text-white hover:bg-amber-500 rounded">
-                            <i class="ri-share-line"></i>
-                                </button>
+                </thead>
+                <tbody  id ="files-table">
 
-                          </div>
-                        </td>
-                            
-                </tr>
-                 <td class="py-3 pl-6">Introduction to html</td>
-                      <td>Image</td>
-                        <td>20.36Mb</td>
-                          <td>24 june 2025</td>
-                          <td>
-                            
-              <div>
-                  <button class="bg-rose-400 px-2 py-1 text-white hover:bg-rose-500 rounded">
-                      <i class="ri-delete-bin-4-line"></i>
-                         </button>
-                 <button class="bg-green-400 px-2 py-1 text-white hover:bg-green-500 rounded">
-                    <i class="ri-download-line"></i>
-                        </button>
-              <button class="bg-amber-400 px-2 py-1 text-white hover:bg-amber-500 rounded">
-                 <i class="ri-share-line"></i>
-                      </button>
-                        <tr>
-
+                </tbody>
             </table>      
       </div>  
  </section>
  <div class="fixed w-4/12 bg-white shadow-lg top-0 h-full p-6 space-y-4 "style="right:-33.33%; transition:0.2s" id="drawer">
    <div class="flex justify-between items-center">
       <h1 class="text-lg font-medium text-gray-600">Adding a new file</h1>
-      <button onclick="toggleDrawer ()">
+      <button onclick="toggleDrawer()">
         <i class="ri-close-circle-fill hover:text-rose-600 text-lg"></i>
     </button>
  </div>
     <div class="h-px bg-gray-100 -mx-6"></div>
-    <form class="space-y-4">
+    <form class="space-y-4" onsubmit="uploadFile(event)">
         <div class="flex flex-col gap-2">
             <label class="text-gray-600 font-medium">Filename</label>
-            <input class="py-1 px-10 rounded border border-gray-300" placeholder="Enter file name">
+            <input name ="filename" class="py-1 px-10 rounded border border-gray-300" placeholder="Enter file name">
         </div>
         <div class="flex flex-col gap-2">
             <label class="text-gray-600 font-medium">Choose a file</label>
-            <input type ="file" required class="py-1 px-8 rounded border border-gray-300" placeholder="Enter file name">
+            <input name ="file" type ="file" required class="py-1 px-8 rounded border border-gray-300" placeholder="Enter file name">
         </div>
-        <button class="py-1 px-4 bg-rose-400 hover:bg-rose-500 text-white rounded font-medium">Upload Now</button>
+        <button id ="upload-btn" class="py-1 px-4 bg-rose-400 hover:bg-rose-500 text-white rounded font-medium">Upload Now</button>
     </form>
     <div class="bg-gray-200 h-3">
-        <div class=" h-full bg-green-500 w-6/12 text-xs text-black text-center">50% </div>
+        <div class="h-full bg-green-500 text-xs text-black text-center" style="width:0%;" id="progress"></div>
     </div>
  </div>
        </div> 
+       <script src="../js/env.js"></script>
        <script src="../js/layout.js"></script> 
-       <script src="../js/my-files.js"></script>         
+       <script src="../js/files.js"></script>         
     </body>
 </html>
 

@@ -16,34 +16,34 @@
             
                 <div class="flex flex-col items-center">
                  <img src="../images/avt.png" width="80"/>
-                 <h1 class="text-lg-font-medium text-white">Lubna khan </h1>
-                 <p class ="text-sm text-gray-300">Lubna@gmail.com</p>
+                 <h1 class="text-lg-font-medium text-white">Salim khan </h1>
+                 <p class ="text-sm text-gray-300">Salim@gmail.com</p>
             </div>
             <div class="px-6 space-y-4">
                  
              </a>
             <div class="px-3 flex flex-col gap-4">
-            <a href="./dashbord.html"> 
+            <a href="/dashbord"> 
                 <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-apps-line"></i>
                 <label>Dashbord</label>
                 </button>
             </a>
             
-            <a href="./my-files.html"> 
+            <a href="/files"> 
                 <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-file-2-line"></i>
                 <label>My Files</label>
                 </button>
             </a>
            
-            <a href="./History.html"> 
+            <a href="/history"> 
                 <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-history-line"></i>
                 <label>History</label>
                 </button>
             </a>
-            <button class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
+            <button  onclick="logout()"class="w-full bg-rose-400 text-white py-1 rounded hover:bg-rose-600">
                 <i class="ri-logout-circle-r-line"></i>
                 <label>Logout</label>
                 </button>
@@ -59,7 +59,7 @@
                 </div >           
 
                  <div class="space-x-2">
-            <button  class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
+            <button onclick="logout()" class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
             <i class="ri-logout-circle-r-line"></i>
         </button>
             <button onclick="toggleSidebar()" class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
@@ -144,8 +144,10 @@
     </div>
  </div>
        </div> 
+        <script src="../js/env.js"></script>
+        <script src="../js/history.js"></script>
        <script src="../js/layout.js"></script> 
-       <script src="../js/my-files.js"></script>         
+            
     </body>
 </html>
  

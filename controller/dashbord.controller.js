@@ -1,5 +1,5 @@
 const FileModel= require("../model/file.model")
-const fetchDashboard = async(req,res)=>{
+const fetchDashbord = async(req,res)=>{
     try{
 const reports = await FileModel.aggregate([
     {
@@ -16,5 +16,5 @@ res.status(500).json({message:err.message})
     }
 }
 module.exports={
-fetchDashboard
+fetchDashbord
 }
