@@ -91,7 +91,7 @@ const mb =(size/1000)/1000
                  <button class="bg-green-400 px-2 py-1 text-white hover:bg-green-500 rounded" onclick="downloadFile('${file._id}','${file.filename}',this)">
                     <i class="ri-download-line"></i>
                         </button>
-              <button class="bg-amber-400 px-2 py-1 text-white hover:bg-amber-500 rounded">
+              <button class="bg-amber-400 px-2 py-1 text-white hover:bg-amber-500 rounded" onclick="openModelForShare('${file._id}','${file.filename}')" >
                         <i class="ri-share-line"></i>
                     </button>     
             </div>
@@ -154,5 +154,58 @@ finally{
     button.innerHTML = '<i class="ri-download-line"></i>'
     button.disabled = false
     
+}
+}
+const openModelForShare= (id,filename)=>{
+    new Swal({
+        showConfirmButton :false,
+        html:`
+        <form class="text-left flex flex-col gap-6" onsubmit="shareFile('${id}',event)">
+            <h1 class ="font-medium text-blank text-2xl">Email id</h1>
+        <input type="email" required class="border border-gray-300 w-full p-3 rounded" placeholder="mail@gmail.com" name="email" />
+        <button id="send-button" class="bg-indigo-400 hover:bg-indigo-500 text-white rounded py-3 px-8 w-fit font-medium"> Send </button>
+            
+        
+         <div class="flex items-center gap-2">
+              <p class="text-gray-500"> You are sharing  - </p>  
+              <p class="text-green-400 font-medium"> ${filename}</p>
+            </div>
+        </form>
+
+             `   
+            
+    })
+}
+
+
+const shareFile =async (id, e)=>{
+    const sendButton = document.getElementById("send-button")
+        
+    const form = e.target
+    try{
+    e.preventDefault()
+    const sendButton = document.getElementById("send-button")
+    sendButton.disabled = true
+    sendButton.innerHTML =`
+    <i class="fa fa-spinner fa-spin mr-2"></i>
+    wait
+    `
+    const form = e.target
+    const email = form.elements.email.value.trim()
+    const payload = {
+        email:email,
+        fileId: id,
+         senderName: "Lubna"
+   
+    }
+    const {data} = await axios.post('/api/share',payload)
+  console.log(data)
+}
+catch(err){
+    toast.error(err.response ? err.response.data.message:err.message)
+}
+finally {
+    swal.close()
+   
 }
 }

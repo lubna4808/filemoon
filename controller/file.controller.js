@@ -1,6 +1,13 @@
 const FileModel =require("../model/file.model");
 const path =require("path")
 const fs = require("fs")
+const getType = (type)=>{
+const ext = type.split("/").pop()
+if(ext ==="x-msdownload")
+  return "application"
+  return type
+}
+
 const createFile = async(req,res)=>{
   try{
     const{filename}= req.body
@@ -8,7 +15,7 @@ const createFile = async(req,res)=>{
     const payload ={
       path:(file.destination + "/"  + file.filename),
       filename : filename,
-      type: file.mimetype.split("/")[0],
+      type:getType(file.mimetype),
       size:file.size
 
     }
@@ -67,8 +74,6 @@ const fetchFiles = async(req,res)=>{
 
       res.setHeader('Content-Disposition', `attachment; filename=${file.filename}`);
    
-
-
       res.sendFile(filePath,(err)=>{
         if(err)
 

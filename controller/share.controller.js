@@ -101,13 +101,15 @@ const getEmailTemplete = (link,senderName)=>{
 
 const shareFile = async(req,res)=>{
     try{
-        const { email, fileid }= req.body
-        const link =`http://localhost:8080/api/file/download/${fileid}`
+        const { email, fileid ,senderName }= req.body
+       
+        const link =`${process.env.DOMAIN}/api/file/download/${fileid}`
         const options = {
 from:process.env.SMTP_EMAIL,
 to:email,
+
 subject:' Filemoon-nwe-file received',
-html:getEmailTemplete(link)
+html:getEmailTemplete(link, senderName)
         }
  await conn.sendMail(options)
  res.status(200).json({message:'Email sent'})

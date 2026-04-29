@@ -25,7 +25,8 @@ const login = async (e) => {
     };
     const { data } = await axios.post(`/api/login`, payload);
     toast.success(data.message);
-    localStorage.setItem("authToken",data.token)
+    //localStorage.setItem("authToken",data.token)
+    localStorage.setItem("token", data.token)
     setTimeout(() => {
       location.href ="/dashbord";
        //location.href ="C:\Users\hp\OneDrive\Desktop\filemoon\view\app\dashbord.html"

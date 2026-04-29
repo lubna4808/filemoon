@@ -31,7 +31,7 @@ const signup = async (req,res )=>{
          fullname:user.fullname,
        id:user._id
        }
-       const token = await jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'1m'})
+       const token = await jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'1d'})
       res.status(200).json({
         message:'Login success',
         token: token
