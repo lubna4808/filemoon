@@ -5,19 +5,21 @@ const getType = (type)=>{
 const ext = type.split("/").pop()
 if(ext ==="x-msdownload")
   return "application"
+
   return type
 }
 
 const createFile = async(req,res)=>{
   try{
+    console.log(req.user)
     const{filename}= req.body
     const file = req.file
     const payload ={
-      path:(file.destination + "/"  + file.filename),
+      path:(file.destination+file.filename),
       filename : filename,
       type:getType(file.mimetype),
-      size:file.size
-
+      size:file.size,
+    user:req.user.id
     }
     const newFile = await FileModel.create(payload)
     res.status(200).json(newFile)
@@ -30,7 +32,9 @@ res.status(500).json({message:err.message})
 
 const fetchFiles = async(req,res)=>{
   try{
-    const files = await FileModel.find()
+    console.log(req.query)
+    const files = await FileModel.find({user:req.user.id})
+    .sort({createdAt: -1})
     res.status(200).json(files)
   }
     catch(err){

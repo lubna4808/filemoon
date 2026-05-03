@@ -1,8 +1,13 @@
-const {Schema,model} = require("mongoose")
+const {Schema,model, default: mongoose} = require("mongoose")
 
 
 const fileSchema = new Schema(
     {
+user:{
+  type:mongoose.Types.ObjectId,
+  ref:'User',
+  required:true
+},
            filename :{
             type :String,
             trim:true,
@@ -17,16 +22,16 @@ const fileSchema = new Schema(
             },
 
             type:{
-              type:String,
-              trim:true,
-              lowercase:true ,
-               required:true 
+              type: String,
+              trim: true,
+              lowercase: true ,
+               required: true 
             },
           size:{
             type:Number,
              required:true
             }
         
-    },{timestemps:true})
+    },{ timestamps: true } )
 const FileModel = model("File",fileSchema)
 module.exports = FileModel

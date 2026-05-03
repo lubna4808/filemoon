@@ -13,7 +13,7 @@ const { verifyToken } = require("./controller/token.controller")
 const { signup, login } = require("./controller/user.controller")
 const { createFile, fetchFiles, deleteFile, downloadFile } = require("./controller/file.controller")
 const { fetchDashbord } = require("./controller/dashbord.controller")
-const { shareFile } = require("./controller/share.controller")
+const { shareFile, fetchShared } = require("./controller/share.controller")
 
 const app = express()
 
@@ -65,7 +65,7 @@ app.get("/history",(req,res)=>{
 app.get("/files",(req,res)=>{
  const p = getPath("app/files.html")
   res.sendFile(p)
-})
+}) 
 
 /* Multer Storage */
 
@@ -89,14 +89,17 @@ const upload = multer({ storage:storage,
 
 app.post("/api/login", login)
 app.post("/api/signup", signup)
-app.post("/api/file", upload.single("file"), createFile)
+app.post("/api/file", AuthMiddleware,upload.single("file"), createFile)
 app.get("/api/file",AuthMiddleware,fetchFiles)
 app.get("/api/file/:id",AuthMiddleware,deleteFile)
+//app.delete("/api/file/:id", AuthMiddleware, deleteFile) 
 app.delete("/api/file/:id", deleteFile)
 app.get('/api/file/download/:id',downloadFile)
 app.get("/api/dashbord", AuthMiddleware,fetchDashbord)
-app.post('/api/token/verify',verifyToken)
+app.post('/api/token/verify',AuthMiddleware, verifyToken)
+
 app.post('/api/share', AuthMiddleware,shareFile)
+app.get('/api/share', AuthMiddleware,fetchShared)
 /* Server */
 
 app.listen(process.env.PORT || 8080, () => {

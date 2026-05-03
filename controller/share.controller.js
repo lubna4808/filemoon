@@ -1,3 +1,4 @@
+//const { promises } = require("nodemailer/lib/xoauth2")
 const ShareModel = require("../model/share.model")
 const nodemailer = require("nodemailer")
 const conn = nodemailer.createTransport({
@@ -101,7 +102,7 @@ const getEmailTemplete = (link,senderName)=>{
 
 const shareFile = async(req,res)=>{
     try{
-        const { email, fileid ,senderName }= req.body
+        const { email, fileid}= req.body
        
         const link =`${process.env.DOMAIN}/api/file/download/${fileid}`
         const options = {
@@ -109,15 +110,40 @@ from:process.env.SMTP_EMAIL,
 to:email,
 
 subject:' Filemoon-nwe-file received',
-html:getEmailTemplete(link, senderName)
+html:getEmailTemplete(link,req.user.fullname)
         }
- await conn.sendMail(options)
+        const payload ={
+  user:req.user.id,
+   receiverEmail:email,
+   file:fileid
+        }
+
+ 
+
+ await Promise.all([
+conn.sendMail(options),
+ShareModel.create(payload)
+ ])
+
  res.status(200).json({message:'Email sent'})
 
     }catch(err){
 res.status(500).json({message:err.message})
 }
 }
+const fetchShared = async(req, res)=>{
+  try{
+const history = await ShareModel.find({user:req.user.id})
+//.populate('user','fullname email mobile -_id')
+.populate('file')
+.sort({createdAt: -1})
+
+res.status(200).json(history)
+} catch(err){
+    res.status(500).json({message:err.message})
+  }
+}
 module.exports ={
-    shareFile
+    shareFile,
+    fetchShared 
 }
